@@ -1,6 +1,10 @@
 from datetime import datetime, timedelta
 
 class RefreshMonitor():
+    """ 
+    The e-Paper display used recommends against images being retained for 24+ hours.
+    This monitors the time since last refresh, so that we can clear the screen if controller fails.
+    """
 
     def __init__(self, timeout_hours):    
         self.timeout_hours = timeout_hours
