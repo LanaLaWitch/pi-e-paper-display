@@ -1,7 +1,8 @@
 from display_buffer import DisplayBuffer
 import utime
+import asyncio
 
-def display_buffer(epd, buffer: DisplayBuffer):
+async def display_buffer(epd, buffer: DisplayBuffer):
 
     epd.init()
     epd.Clear()
@@ -15,13 +16,12 @@ def display_buffer(epd, buffer: DisplayBuffer):
         if check_timeout(forgiving_run_time, start_ticks):
             break
 
-        if not buffer.check_ready_to_release():
-            utime.sleep_ms(10)
-            continue
+        frame, delay = buffer.get_next()
 
-        frame = buffer.get_next()
         draw_func = frame.get_draw_function()
         draw_func(epd)
+
+        await asyncio.sleep_ms(delay)
 
     epd.sleep()
 
