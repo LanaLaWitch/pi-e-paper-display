@@ -1,7 +1,7 @@
 def start_server(port):
     from wifi_config_handler import get_wifi_config
     from wifi_connection_handler import connect_to_wifi, disconnect_from_wifi
-    from socket_handler import build_socket
+    from socket_handler import build_socket_tcp
 
     ssid, psswrd = get_wifi_config()
 
@@ -15,7 +15,7 @@ def start_server(port):
     if ip is None:
         return
 
-    sock = build_socket(ip, port)
+    sock = build_socket_tcp(ip, port)
 
     sock.listen(1)
     print(f'Socket ready, IP: {ip}')
