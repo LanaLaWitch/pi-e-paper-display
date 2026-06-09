@@ -12,7 +12,7 @@ def build_socket_tcp(ip='0.0.0.0', port=8080):
 
     return sock
 
-def build_socket_udp(ip='0.0.0.0', port=8080):
+def build_socket_udp(ip='0.0.0.0', port=5005):
 
     print(f'Building socket on IP: {ip} , Port: {port}')
     address = socket.getaddrinfo(ip, port)[0][-1]
