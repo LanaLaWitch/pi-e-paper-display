@@ -1,7 +1,8 @@
 import network
 import time
 
-def ScanForNetworks():
+
+def scan_for_networks():
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
 
@@ -9,14 +10,14 @@ def ScanForNetworks():
     found_networks = wlan.scan()
     print(f'{len(found_networks)} were found')
 
-    for i in range(len(found_networks)):
-        print(f'{i}: {found_networks[i]}')
+    for i, net in enumerate(found_networks):
+        print(f'{i}: {net}')
 
     wlan.active(False)
     return found_networks
 
-def ConnectToWiFi(ssid, psswrd):
 
+def connect_to_wifi(ssid, psswrd):
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
 
@@ -32,14 +33,15 @@ def ConnectToWiFi(ssid, psswrd):
         print(f'Connection failed after {timeout} seconds. Status {wlan.status()}')
         wlan.active(False)
         return False
-    
+
     status = wlan.ifconfig()
     print(f'Connection successful. IP: {status[0]}')
 
     wlan.active(False)
     return True
 
-def DisconnectFromWiFi():
+
+def disconnect_from_wifi():
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
 
@@ -48,11 +50,11 @@ def DisconnectFromWiFi():
 
     wlan.active(False)
 
-def TestConnectToWiFi(ssid, psswrd):
 
-    connection_success = ConnectToWiFi(ssid, psswrd)
+def test_connect_to_wifi(ssid, psswrd):
+    connection_success = connect_to_wifi(ssid, psswrd)
 
     if connection_success:
-        DisconnectFromWiFi()
+        disconnect_from_wifi()
 
     return connection_success
