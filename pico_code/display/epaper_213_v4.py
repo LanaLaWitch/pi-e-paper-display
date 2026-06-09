@@ -31,6 +31,9 @@ from machine import Pin, SPI
 import framebuf
 import utime
 
+# Taken from specs
+PARTIAL_REFRESH_TIME_MS = 300
+FULL_REFRESH_TIME_MS = 2000
 
 EPD_WIDTH       = 122
 EPD_HEIGHT      = 250
