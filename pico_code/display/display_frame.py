@@ -1,9 +1,6 @@
-from enum import Enum
-
-class DisplayFrameType(Enum):
-    BYTE_ARRAY = 1
-    TEXT = 2
-    INSTRUCTIONS = 3
+BYTE_ARRAY = 1
+TEXT = 2
+INSTRUCTIONS = 3
 
 class TextData:
     def __init__(self, text, x, y):
@@ -24,11 +21,11 @@ class DisplayFrame():
             self.draw_colour = 0xFF
 
     def get_draw_function(self):
-        if self.type == DisplayFrameType.BYTE_ARRAY:
+        if self.type == BYTE_ARRAY:
             return self._draw_func_byte_array
-        elif self.type == DisplayFrameType.TEXT:
+        elif self.type == TEXT:
             return self._draw_func_text
-        elif self.type == DisplayFrameType.INSTRUCTIONS:
+        elif self.type == INSTRUCTIONS:
             return self._draw_func_instructions
         else:
             raise ValueError("Unknown DisplayFrameType: {}".format(self.type))
