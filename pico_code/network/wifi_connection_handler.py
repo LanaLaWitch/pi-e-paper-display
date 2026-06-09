@@ -36,13 +36,13 @@ def connect_to_wifi(ssid, psswrd):
     if not wlan.isconnected() or wlan.status() != 3:
         print(f'Connection failed after {timeout} seconds. Status {wlan.status()}')
         wlan.active(False)
-        return False
+        return None
 
     status = wlan.ifconfig()
     print(f'Connection successful. IP: {status[0]}')
 
     wlan.active(False)
-    return True
+    return status[0]
 
 
 def disconnect_from_wifi():
@@ -58,7 +58,7 @@ def disconnect_from_wifi():
 def test_connect_to_wifi(ssid, psswrd):
     connection_success = connect_to_wifi(ssid, psswrd)
 
-    if connection_success:
+    if connection_success is not None:
         disconnect_from_wifi()
 
-    return connection_success
+    return connection_success is not None
