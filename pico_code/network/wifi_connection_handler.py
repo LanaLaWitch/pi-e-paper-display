@@ -1,6 +1,7 @@
 import network
 import time
 
+HOSTNAME = 'pico-epaper-display'
 
 def scan_for_networks():
     wlan = network.WLAN(network.STA_IF)
@@ -18,6 +19,9 @@ def scan_for_networks():
 
 
 def connect_to_wifi(ssid, psswrd):
+
+    network.hostname = HOSTNAME
+
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
 
