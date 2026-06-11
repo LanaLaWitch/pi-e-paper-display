@@ -1,10 +1,7 @@
 class DisplayBuffer():
 
-    def __init__(self):
-        self.buffer = []
-
-    def add(self, frame, delay):
-        self.buffer.insert(0, (frame, delay))
+    def __init__(self, frames):
+        self.buffer = frames
 
     def get_next(self):
         return self.buffer.pop()
