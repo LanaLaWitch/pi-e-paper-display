@@ -2,6 +2,8 @@ from display_buffer import DisplayBuffer
 from display_frame import DisplayFrame
 from frame_components import FrameComponent, ByteArrayComponent, TextComponent, InstructionComponent
 from array import array
+import asyncio
+import errno
 
 
 async def get_display_frame_buffer(conn):
@@ -10,15 +12,21 @@ async def get_display_frame_buffer(conn):
 
 
 async def _read(conn, n):
-    buffer = bytearray(n)
-    view = memoryview(buffer)
+    buf = bytearray(n)
+    view = memoryview(buf)
     received = 0
     while received < n:
-        chunk = conn.recv(n - received)
-        if chunk:
+        try:
+            chunk = conn.recv(n - received)
+            if not chunk:
+                raise OSError('connection closed')
             view[received:received + len(chunk)] = chunk
             received += len(chunk)
-    return buffer
+        except OSError as e:
+            if e.args[0] != errno.EAGAIN:
+                raise
+            await asyncio.sleep(0)
+    return buf
 
 
 async def _decode_packet(conn):
