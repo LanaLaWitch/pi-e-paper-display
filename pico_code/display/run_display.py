@@ -18,7 +18,7 @@ async def process_display_buffer(epd, buffer: DisplayBuffer):
 
         frame, delay = buffer.get_next()
 
-        draw_func = frame.get_draw_function()
+        draw_func = frame.draw_frame(epd)
         draw_func(epd)
 
         await asyncio.sleep_ms(delay)
