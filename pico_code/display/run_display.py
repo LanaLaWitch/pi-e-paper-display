@@ -4,7 +4,6 @@ import asyncio
 
 async def process_display_buffer(epd, buffer: DisplayBuffer):
 
-    epd.init()
     epd.Clear()
 
     # To ensure we exit the loop, we'll look at the expected run time and add 5 seconds
