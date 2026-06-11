@@ -2,7 +2,7 @@ from display_buffer import DisplayBuffer
 import utime
 import asyncio
 
-async def display_buffer(epd, buffer: DisplayBuffer):
+async def process_display_buffer(epd, buffer: DisplayBuffer):
 
     epd.init()
     epd.Clear()
