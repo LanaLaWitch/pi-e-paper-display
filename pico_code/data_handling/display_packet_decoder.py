@@ -5,8 +5,8 @@ from array import array
 
 
 async def get_display_frame_buffer(conn):
-    decoded_frames = await _decode_packet(conn)
-    return DisplayBuffer(decoded_frames)
+    decoded_frames, orientation = await _decode_packet(conn)
+    return DisplayBuffer(decoded_frames, orientation)
 
 
 async def _read(conn, n):
@@ -24,6 +24,7 @@ async def _read(conn, n):
 async def _decode_packet(conn):
     frame_count = int.from_bytes(await _read(conn, 1), 'big')
     bg_colour = int.from_bytes(await _read(conn, 1), 'big')
+    orientation = int.from_bytes(await _read(conn, 1), 'big')
 
     frames = []
     is_base_frame = True
@@ -52,7 +53,7 @@ async def _decode_packet(conn):
         frames.append((frame_object, delay_ms))
         is_base_frame = False
 
-    return frames
+    return frames, orientation
 
 
 def _decode_text_component(data, draw_colour):

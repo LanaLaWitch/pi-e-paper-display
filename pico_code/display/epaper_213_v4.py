@@ -31,6 +31,10 @@ from machine import Pin, SPI
 import framebuf
 import utime
 
+# Orientations
+LANDSCAPE = 0
+PORTRAIT = 1
+
 # Taken from specs
 PARTIAL_REFRESH_TIME_MS = 300
 FULL_REFRESH_TIME_MS = 2000

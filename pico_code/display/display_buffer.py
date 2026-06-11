@@ -1,7 +1,8 @@
 class DisplayBuffer():
 
-    def __init__(self, frames):
+    def __init__(self, frames, orientation):
         self.buffer = frames
+        self.orientation = orientation
 
     def get_next(self):
         return self.buffer.pop()
