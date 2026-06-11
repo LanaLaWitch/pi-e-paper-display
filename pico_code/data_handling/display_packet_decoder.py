@@ -10,15 +10,15 @@ async def get_display_frame_buffer(conn):
 
 
 async def _read(conn, n):
-    buf = bytearray(n)
-    view = memoryview(buf)
+    buffer = bytearray(n)
+    view = memoryview(buffer)
     received = 0
     while received < n:
         chunk = conn.recv(n - received)
         if chunk:
             view[received:received + len(chunk)] = chunk
             received += len(chunk)
-    return buf
+    return buffer
 
 
 async def _decode_packet(conn):
