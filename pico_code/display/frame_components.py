@@ -1,26 +1,32 @@
 class FrameComponent:
 
-    def draw_component(self, epd, colour):
+    BYTE_ARRAY = 1
+    TEXT = 2
+    INSTRUCTION = 3
+
+    def draw_component(self, epd):
         pass
 
 class ByteArrayComponent(FrameComponent):
-    def __init__(self, byte_array):
+    def __init__(self, byte_array, colour):
         self.byte_array = byte_array
+        self.colour = colour
 
-    def draw_component(self, epd, colour):
-        if colour == 0xFF:
+    def draw_component(self, epd):
+        if self.colour == 0xFF:
             epd.buffer[:] = bytearray(b ^ 0xFF for b in self.byte_array)
         else:
             epd.buffer[:] = self.byte_array
 
 class TextComponent(FrameComponent):
-    def __init__(self, text, x, y):
+    def __init__(self, text, x, y, colour):
         self.text = text
         self.x = x
         self.y = y
+        self.colour = colour
 
-    def draw_component(self, epd, colour):
-        epd.text(self.text, self.x, self.y, colour)
+    def draw_component(self, epd):
+        epd.text(self.text, self.x, self.y, self.colour)
 
 class InstructionComponent(FrameComponent):
 
@@ -49,27 +55,26 @@ class InstructionComponent(FrameComponent):
         POLYGON_FILLED: {'x', 'y', 'coords'},
     }
 
-    def __init__(self, component_type, filled=False, bitmask=None, **kwargs):
+    def __init__(self, component_type, colour, filled=False, bitmask=None, **kwargs):
 
-        if type != InstructionComponent.FILL:
-            expected = InstructionComponent._PARAMS_MAPPING[type]
+        if component_type != InstructionComponent.FILL:
+            expected = InstructionComponent._PARAMS_MAPPING[component_type]
             if kwargs.keys() != expected:
                 raise ValueError(f"Expected {expected}, got {set(kwargs.keys())}")
-            
+
             if filled:
                 kwargs['f'] = True
 
             if bitmask is not None:
                 kwargs['m'] = bitmask
 
+            kwargs['c'] = colour
+
         self.component_type = component_type
+        self.colour = colour
         self.kwargs = kwargs
 
-
-    def draw_component(self, epd, colour):
-        if self.kwargs is not None:
-            self.kwargs['c'] = colour
-
+    def draw_component(self, epd):
         match self.component_type:
             case InstructionComponent.PIXEL:
                 epd.pixel(**self.kwargs)
@@ -92,4 +97,4 @@ class InstructionComponent(FrameComponent):
             case InstructionComponent.POLYGON_FILLED:
                 epd.poly(**self.kwargs)
             case InstructionComponent.FILL:
-                epd.fill(colour)
+                epd.fill(self.colour)
