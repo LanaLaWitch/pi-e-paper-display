@@ -11,6 +11,7 @@ class ByteArrayComponent(FrameComponent):
     def __init__(self, byte_array, colour):
         self.byte_array = byte_array
         self.colour = colour
+        self.component_type = self.BYTE_ARRAY
 
     def draw_component(self, epd):
         if self.colour == 0xFF:
@@ -24,6 +25,7 @@ class TextComponent(FrameComponent):
         self.x = x
         self.y = y
         self.colour = colour
+        self.component_type = self.TEXT
 
     def draw_component(self, epd):
         epd.text(self.text, self.x, self.y, self.colour)
@@ -55,10 +57,10 @@ class InstructionComponent(FrameComponent):
         POLYGON_FILLED: {'x', 'y', 'coords'},
     }
 
-    def __init__(self, component_type, colour, filled=False, bitmask=None, **kwargs):
+    def __init__(self, instruction_type, colour, filled=False, bitmask=None, **kwargs):
 
-        if component_type != InstructionComponent.FILL:
-            expected = InstructionComponent._PARAMS_MAPPING[component_type]
+        if instruction_type != InstructionComponent.FILL:
+            expected = InstructionComponent._PARAMS_MAPPING[instruction_type]
             if kwargs.keys() != expected:
                 raise ValueError(f"Expected {expected}, got {set(kwargs.keys())}")
 
@@ -70,12 +72,13 @@ class InstructionComponent(FrameComponent):
 
             kwargs['c'] = colour
 
-        self.component_type = component_type
+        self.component_type = self.INSTRUCTION
+        self.instruction_type = instruction_type
         self.colour = colour
         self.kwargs = kwargs
 
     def draw_component(self, epd):
-        match self.component_type:
+        match self.instruction_type:
             case InstructionComponent.PIXEL:
                 epd.pixel(**self.kwargs)
             case InstructionComponent.HLINE:
