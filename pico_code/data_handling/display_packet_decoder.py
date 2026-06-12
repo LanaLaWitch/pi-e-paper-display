@@ -98,42 +98,27 @@ def _decode_instruction_component(data, draw_colour):
             x2 = int.from_bytes(data[5:7], 'big')
             y2 = int.from_bytes(data[7:9], 'big')
             return InstructionComponent(InstructionComponent.LINE, draw_colour, x1=x1, y1=y1, x2=x2, y2=y2)
-        case InstructionComponent.RECT_EMPTY:
+        case InstructionComponent.RECT_EMPTY | InstructionComponent.RECT_FILLED:
             x = int.from_bytes(data[1:3], 'big')
             y = int.from_bytes(data[3:5], 'big')
             w = int.from_bytes(data[5:7], 'big')
             h = int.from_bytes(data[7:9], 'big')
-            return InstructionComponent(InstructionComponent.RECT_EMPTY, draw_colour, x=x, y=y, w=w, h=h)
-        case InstructionComponent.RECT_FILLED:
-            x = int.from_bytes(data[1:3], 'big')
-            y = int.from_bytes(data[3:5], 'big')
-            w = int.from_bytes(data[5:7], 'big')
-            h = int.from_bytes(data[7:9], 'big')
-            return InstructionComponent(InstructionComponent.RECT_FILLED, draw_colour, filled=True, x=x, y=y, w=w, h=h)
-        case InstructionComponent.ELLIPSE_EMPTY:
+            filled = instruction_type == InstructionComponent.RECT_FILLED
+            return InstructionComponent(instruction_type, draw_colour, filled=filled, x=x, y=y, w=w, h=h)
+        case InstructionComponent.ELLIPSE_EMPTY | InstructionComponent.ELLIPSE_FILLED:
             x = int.from_bytes(data[1:3], 'big')
             y = int.from_bytes(data[3:5], 'big')
             xr = int.from_bytes(data[5:7], 'big')
             yr = int.from_bytes(data[7:9], 'big')
             bitmask = int.from_bytes(data[9:10], 'big') if len(data) > 9 else None
-            return InstructionComponent(InstructionComponent.ELLIPSE_EMPTY, draw_colour, bitmask=bitmask, x=x, y=y, xr=xr, yr=yr)
-        case InstructionComponent.ELLIPSE_FILLED:
-            x = int.from_bytes(data[1:3], 'big')
-            y = int.from_bytes(data[3:5], 'big')
-            xr = int.from_bytes(data[5:7], 'big')
-            yr = int.from_bytes(data[7:9], 'big')
-            bitmask = int.from_bytes(data[9:10], 'big') if len(data) > 9 else None
-            return InstructionComponent(InstructionComponent.ELLIPSE_FILLED, draw_colour, filled=True, bitmask=bitmask, x=x, y=y, xr=xr, yr=yr)
-        case InstructionComponent.POLYGON_EMPTY:
+            filled = instruction_type == InstructionComponent.ELLIPSE_FILLED
+            return InstructionComponent(instruction_type, draw_colour, filled=filled, bitmask=bitmask, x=x, y=y, xr=xr, yr=yr)
+        case InstructionComponent.POLYGON_EMPTY | InstructionComponent.POLYGON_FILLED:
             x = int.from_bytes(data[1:3], 'big')
             y = int.from_bytes(data[3:5], 'big')
             coords = _decode_coords(data[5:])
-            return InstructionComponent(InstructionComponent.POLYGON_EMPTY, draw_colour, x=x, y=y, coords=coords)
-        case InstructionComponent.POLYGON_FILLED:
-            x = int.from_bytes(data[1:3], 'big')
-            y = int.from_bytes(data[3:5], 'big')
-            coords = _decode_coords(data[5:])
-            return InstructionComponent(InstructionComponent.POLYGON_FILLED, draw_colour, filled=True, x=x, y=y, coords=coords)
+            filled = instruction_type == InstructionComponent.POLYGON_FILLED
+            return InstructionComponent(instruction_type, draw_colour, filled=filled, x=x, y=y, coords=coords)
 
 
 def _decode_coords(coords_slice):

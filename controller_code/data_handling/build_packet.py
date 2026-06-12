@@ -60,35 +60,19 @@ def _encode_instruction_component(component):
             temp_packet += struct.pack('>H', component.kwargs['y1'])
             temp_packet += struct.pack('>H', component.kwargs['x2'])
             temp_packet += struct.pack('>H', component.kwargs['y2'])
-        case InstructionComponent.RECT_EMPTY:
+        case InstructionComponent.RECT_EMPTY | InstructionComponent.RECT_FILLED:
             temp_packet += struct.pack('>H', component.kwargs['x'])
             temp_packet += struct.pack('>H', component.kwargs['y'])
             temp_packet += struct.pack('>H', component.kwargs['w'])
             temp_packet += struct.pack('>H', component.kwargs['h'])
-        case InstructionComponent.RECT_FILLED:
-            temp_packet += struct.pack('>H', component.kwargs['x'])
-            temp_packet += struct.pack('>H', component.kwargs['y'])
-            temp_packet += struct.pack('>H', component.kwargs['w'])
-            temp_packet += struct.pack('>H', component.kwargs['h'])
-        case InstructionComponent.ELLIPSE_EMPTY:
+        case InstructionComponent.ELLIPSE_EMPTY | InstructionComponent.ELLIPSE_FILLED:
             temp_packet += struct.pack('>H', component.kwargs['x'])
             temp_packet += struct.pack('>H', component.kwargs['y'])
             temp_packet += struct.pack('>H', component.kwargs['xr'])
             temp_packet += struct.pack('>H', component.kwargs['yr'])
             if 'm' in component.kwargs:
                 temp_packet += struct.pack('>B', component.kwargs['m'])
-        case InstructionComponent.ELLIPSE_FILLED:
-            temp_packet += struct.pack('>H', component.kwargs['x'])
-            temp_packet += struct.pack('>H', component.kwargs['y'])
-            temp_packet += struct.pack('>H', component.kwargs['xr'])
-            temp_packet += struct.pack('>H', component.kwargs['yr'])
-            if 'm' in component.kwargs:
-                temp_packet += struct.pack('>B', component.kwargs['m'])
-        case InstructionComponent.POLYGON_EMPTY:
-            temp_packet += struct.pack('>H', component.kwargs['x'])
-            temp_packet += struct.pack('>H', component.kwargs['y'])
-            temp_packet += _encode_coords(component.kwargs['coords'])
-        case InstructionComponent.POLYGON_FILLED:
+        case InstructionComponent.POLYGON_EMPTY | InstructionComponent.POLYGON_FILLED:
             temp_packet += struct.pack('>H', component.kwargs['x'])
             temp_packet += struct.pack('>H', component.kwargs['y'])
             temp_packet += _encode_coords(component.kwargs['coords'])
