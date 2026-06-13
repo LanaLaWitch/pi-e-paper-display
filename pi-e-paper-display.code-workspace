@@ -1,0 +1,26 @@
+{
+    "folders": [
+        {
+            "name": "pico_code",
+            "path": "."
+        },
+        {
+            "name": "controller_code",
+            "path": "controller_code"
+        }
+    ],
+    "settings": {
+        "python.envFile": "${workspaceFolder}/.env",
+        "python.languageServer": "Pylance",
+        "python.analysis.typeCheckingMode": "basic",
+        "python.analysis.diagnosticSeverityOverrides": {
+            "reportMissingModuleSource": "none"
+        },
+        "python.terminal.activateEnvironment": false,
+        "micropico.openOnStart": true,
+        "micropico.syncIgnore": [
+            "controller_code/**",
+            "git_explanation.txt"
+        ]
+    }
+}
