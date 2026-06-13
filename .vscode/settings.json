@@ -17,7 +17,7 @@
     ],
     "python.analysis.extraPaths": [
         "~/.micropico-stubs/included",
-        "${workspaceFolder}/pico_code/network",
+        "${workspaceFolder}/pico_code/pico_network",
         "${workspaceFolder}/pico_code/display",
         "${workspaceFolder}/pico_code/data_handling",
         "${workspaceFolder}/pico_code/logging",
