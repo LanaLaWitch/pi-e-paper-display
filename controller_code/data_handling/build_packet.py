@@ -76,6 +76,8 @@ def _encode_instruction_component(component):
             temp_packet += struct.pack('>H', component.kwargs['x'])
             temp_packet += struct.pack('>H', component.kwargs['y'])
             temp_packet += _encode_coords(component.kwargs['coords'])
+        case InstructionComponent.FILL:
+            pass
     return temp_packet
 
 

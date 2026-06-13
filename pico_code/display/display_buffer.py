@@ -5,7 +5,7 @@ class DisplayBuffer():
         self.orientation = orientation
 
     def get_next(self):
-        return self.buffer.pop()
+        return self.buffer.pop(0)
 
     def get_buffer_run_time(self):
         from epaper_213_v4 import PARTIAL_REFRESH_TIME_MS

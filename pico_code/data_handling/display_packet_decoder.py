@@ -124,5 +124,5 @@ def _decode_instruction_component(data, draw_colour):
 def _decode_coords(coords_slice):
     coords = array('h')
     for i in range(0, len(coords_slice), 2):
-        coords.append(int.from_bytes(coords_slice[i:i+2], 'big'))
+        coords.append(int.from_bytes(coords_slice[i:i+2], 'big', signed=True))
     return coords
