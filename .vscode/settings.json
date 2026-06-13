@@ -1,0 +1,28 @@
+{
+    "python.envFile": "${workspaceFolder}/.env",
+    "python.languageServer": "Pylance",
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportMissingModuleSource": "none"
+    },
+    "python.terminal.activateEnvironment": false,
+    "micropico.openOnStart": true,
+    "micropico.syncFolder": "",
+    "micropico.syncIgnore": [
+        "controller_code/**",
+        "git_explanation.txt"
+    ],
+    "python.analysis.typeshedPaths": [
+        "~/.micropico-stubs/included"
+    ],
+    "python.analysis.extraPaths": [
+        "~/.micropico-stubs/included",
+        "${workspaceFolder}/pico_code/network",
+        "${workspaceFolder}/pico_code/display",
+        "${workspaceFolder}/pico_code/data_handling",
+        "${workspaceFolder}/pico_code/logging",
+        "${workspaceFolder}/pico_code/safety_measures",
+        "${workspaceFolder}/shared/network",
+        "${workspaceFolder}/shared/display"
+    ]
+}

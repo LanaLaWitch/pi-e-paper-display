@@ -78,26 +78,19 @@ class InstructionComponent(FrameComponent):
         self.kwargs = kwargs
 
     def draw_component(self, epd):
-        match self.instruction_type:
-            case InstructionComponent.PIXEL:
-                epd.pixel(**self.kwargs)
-            case InstructionComponent.HLINE:
-                epd.hline(**self.kwargs)
-            case InstructionComponent.VLINE:
-                epd.vline(**self.kwargs)
-            case InstructionComponent.LINE:
-                epd.line(**self.kwargs)
-            case InstructionComponent.RECT_EMPTY:
-                epd.rect(**self.kwargs)
-            case InstructionComponent.RECT_FILLED:
-                epd.rect(**self.kwargs)
-            case InstructionComponent.ELLIPSE_EMPTY:
-                epd.ellipse(**self.kwargs)
-            case InstructionComponent.ELLIPSE_FILLED:
-                epd.ellipse(**self.kwargs)
-            case InstructionComponent.POLYGON_EMPTY:
-                epd.poly(**self.kwargs)
-            case InstructionComponent.POLYGON_FILLED:
-                epd.poly(**self.kwargs)
-            case InstructionComponent.FILL:
-                epd.fill(self.colour)
+        if self.instruction_type == InstructionComponent.PIXEL:
+            epd.pixel(**self.kwargs)
+        elif self.instruction_type == InstructionComponent.HLINE:
+            epd.hline(**self.kwargs)
+        elif self.instruction_type == InstructionComponent.VLINE:
+            epd.vline(**self.kwargs)
+        elif self.instruction_type == InstructionComponent.LINE:
+            epd.line(**self.kwargs)
+        elif self.instruction_type == InstructionComponent.RECT_EMPTY or self.instruction_type == InstructionComponent.RECT_FILLED:
+            epd.rect(**self.kwargs)
+        elif self.instruction_type == InstructionComponent.ELLIPSE_EMPTY or self.instruction_type == InstructionComponent.ELLIPSE_FILLED:
+            epd.ellipse(**self.kwargs)
+        elif self.instruction_type == InstructionComponent.POLYGON_EMPTY or self.instruction_type == InstructionComponent.POLYGON_FILLED:
+            epd.poly(**self.kwargs)
+        elif self.instruction_type == InstructionComponent.FILL:
+            epd.fill(self.colour)
