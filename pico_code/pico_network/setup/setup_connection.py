@@ -1,5 +1,5 @@
 def start_server_tcp(ip, port):
-    from shared.network.socket_handler import build_socket_tcp
+    from shared.pico_network.socket_handler import build_socket_tcp
 
     sock = build_socket_tcp(ip, port)
 
@@ -9,11 +9,10 @@ def start_server_tcp(ip, port):
     return sock
 
 def start_server_udp(ip, port):
-    from shared.network.socket_handler import build_socket_udp
+    from shared.pico_network.socket_handler import build_socket_udp
 
     sock = build_socket_udp(ip, port)
 
-    sock.listen(1)
     print(f'UDP socket ready, IP: {ip}')
 
     return sock

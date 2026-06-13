@@ -16,4 +16,4 @@ def save_wifi_config(ssid, psswrd):
 def get_wifi_config():
     with open(WIFI_CONFIG_FILE_NAME, 'r') as f:
         config = ujson.load(f)
-    return config['ssid'], config['password']
+    return config['ssid'], config['psswrd']

@@ -1,7 +1,7 @@
 def setup_wifi():
 
-    from network.wifi_connection_handler import test_connect_to_wifi
-    from network.wifi_config_handler import save_wifi_config
+    from pico_network.wifi_connection_handler import test_connect_to_wifi
+    from pico_network.wifi_config_handler import save_wifi_config
 
     print('Beginning Wi-Fi setup')
 
@@ -17,7 +17,7 @@ def setup_wifi():
     connection_attempt_result = test_connect_to_wifi(network_ssid, psswrd)
 
     if not connection_attempt_result:
-        print('Could not connect to network. Exiting...')
+        print('Could not connect to pico_network. Exiting...')
         return
     
     print('Tested connection successfully. Saving credentials for future use')
@@ -26,7 +26,7 @@ def setup_wifi():
 
 def _get_network_ssid():
 
-    from network.wifi_connection_handler import scan_for_networks
+    from pico_network.wifi_connection_handler import scan_for_networks
 
     print('Scanning for possible networks...')
 

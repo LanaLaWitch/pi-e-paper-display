@@ -20,8 +20,6 @@ def scan_for_networks():
 
 def connect_to_wifi(ssid, psswrd):
 
-    network.hostname = HOSTNAME
-
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
 
@@ -41,7 +39,6 @@ def connect_to_wifi(ssid, psswrd):
     status = wlan.ifconfig()
     print(f'Connection successful. IP: {status[0]}')
 
-    wlan.active(False)
     return status[0]
 
 
