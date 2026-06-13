@@ -1,5 +1,5 @@
 def start_server_tcp(ip, port):
-    from socket_handler import build_socket_tcp
+    from shared.network.socket_handler import build_socket_tcp
 
     sock = build_socket_tcp(ip, port)
 
@@ -9,7 +9,7 @@ def start_server_tcp(ip, port):
     return sock
 
 def start_server_udp(ip, port):
-    from socket_handler import build_socket_udp
+    from shared.network.socket_handler import build_socket_udp
 
     sock = build_socket_udp(ip, port)
 

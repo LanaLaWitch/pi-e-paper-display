@@ -1,16 +1,16 @@
 import asyncio
-from pico_logger import PicoLogger
-from refresh_monitor import RefreshMonitor
-from display_packet_decoder import get_display_frame_buffer
-from epaper_213_v4 import LANDSCAPE, EPD_2in13_V4_Landscape, EPD_2in13_V4_Portrait
-from run_display import process_display_buffer
+from pico_code.logging.pico_logger import PicoLogger
+from pico_code.safety_measures.refresh_monitor import RefreshMonitor
+from pico_code.data_handling.display_packet_decoder import get_display_frame_buffer
+from pico_code.display.epaper_213_v4 import LANDSCAPE, EPD_2in13_V4_Landscape, EPD_2in13_V4_Portrait
+from pico_code.display.run_display import process_display_buffer
 
 DISPLAY_TIMEOUT_H = 18
 MIN_REFRESH_RATE_M = 3
 
 
 def main():
-    from setup_connection import start_server_tcp, start_server_udp
+    from pico_code.network.setup.setup_connection import start_server_tcp, start_server_udp
 
     print('Starting display program')
 
@@ -20,8 +20,8 @@ def main():
     if ip is None:
         return
     
-    tcp_sock = start_server_tcp(ip, 8080)
-    udp_sock = start_server_udp(ip, 5005)
+    tcp_sock = start_server_tcp(ip)
+    udp_sock = start_server_udp(ip)
 
     logger = PicoLogger(udp_sock)
     refresh_monitor = RefreshMonitor(DISPLAY_TIMEOUT_H, MIN_REFRESH_RATE_M)
@@ -36,8 +36,8 @@ async def run_all_tasks(sock, logger, refresh_monitor):
 
 def start_wifi_connection():
 
-    from wifi_config_handler import get_wifi_config
-    from wifi_connection_handler import connect_to_wifi, disconnect_from_wifi
+    from pico_code.network.wifi_config_handler import get_wifi_config
+    from pico_code.network.wifi_connection_handler import connect_to_wifi, disconnect_from_wifi
 
     ssid, psswrd = get_wifi_config()
 

@@ -1,6 +1,6 @@
-from display_buffer import DisplayBuffer
-from display_frame import DisplayFrame
-from frame_components import FrameComponent, ByteArrayComponent, TextComponent, InstructionComponent
+from pico_code.display.display_buffer import DisplayBuffer
+from shared.display.display_frame import DisplayFrame
+from shared.display.frame_components import FrameComponent, ByteArrayComponent, TextComponent, InstructionComponent
 from array import array
 import asyncio
 import errno

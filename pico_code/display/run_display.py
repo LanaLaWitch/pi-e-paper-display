@@ -1,4 +1,4 @@
-from display_buffer import DisplayBuffer
+from pico_code.display.display_buffer import DisplayBuffer
 import utime
 import asyncio
 

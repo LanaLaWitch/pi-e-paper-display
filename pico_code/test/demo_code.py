@@ -46,6 +46,9 @@ class EPD_2in13_V4_Portrait(framebuf.FrameBuffer):
         
         self.busy_pin = Pin(BUSY_PIN, Pin.IN, Pin.PULL_UP)
         self.cs_pin = Pin(CS_PIN, Pin.OUT)
+
+
+        
         if EPD_WIDTH % 8 == 0:
             self.width = EPD_WIDTH
         else :

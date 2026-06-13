@@ -1,12 +1,9 @@
 import asyncio
-import sys
-sys.path.append('/display')
-
-from epaper_213_v4 import EPD_2in13_V4_Landscape
-from display_frame import DisplayFrame
-from display_buffer import DisplayBuffer
-from frame_components import TextComponent
-from run_display import process_display_buffer
+from pico_code.display.epaper_213_v4 import EPD_2in13_V4_Landscape
+from shared.display.display_frame import DisplayFrame
+from pico_code.display.display_buffer import DisplayBuffer
+from shared.display.frame_components import TextComponent
+from pico_code.display.run_display import process_display_buffer
 
 async def test_text_landscape():
     epd = EPD_2in13_V4_Landscape()
