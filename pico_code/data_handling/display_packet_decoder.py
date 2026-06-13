@@ -49,13 +49,12 @@ async def _decode_packet(conn):
             data_length = int.from_bytes(await _read(conn, 4), 'big')
 
             component_data = await _read(conn, data_length)
-            match component_type:
-                case FrameComponent.BYTE_ARRAY:
-                    components.append(ByteArrayComponent(bytes(component_data), draw_colour))
-                case FrameComponent.TEXT:
-                    components.append(_decode_text_component(component_data, draw_colour))
-                case FrameComponent.INSTRUCTION:
-                    components.append(_decode_instruction_component(component_data, draw_colour))
+            if component_type == FrameComponent.BYTE_ARRAY:
+                components.append(ByteArrayComponent(bytes(component_data), draw_colour))
+            elif component_type == FrameComponent.TEXT:
+                components.append(_decode_text_component(component_data, draw_colour))
+            elif component_type == FrameComponent.INSTRUCTION:
+                components.append(_decode_instruction_component(component_data, draw_colour))
 
         frame_object = DisplayFrame(components, is_base_frame, bg_colour)
         frames.append((frame_object, delay_ms))
