@@ -1,4 +1,4 @@
-from pico_code.display.epaper_213_v4 import EPD_2in13_V4_Portrait
+from display.epaper_213_v4 import EPD_2in13_V4_Portrait
 
 def clear_epd_display():
 

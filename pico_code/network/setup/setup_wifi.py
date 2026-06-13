@@ -1,7 +1,7 @@
 def setup_wifi():
 
-    from pico_code.network.wifi_connection_handler import test_connect_to_wifi
-    from pico_code.network.wifi_config_handler import save_wifi_config
+    from network.wifi_connection_handler import test_connect_to_wifi
+    from network.wifi_config_handler import save_wifi_config
 
     print('Beginning Wi-Fi setup')
 
@@ -26,7 +26,7 @@ def setup_wifi():
 
 def _get_network_ssid():
 
-    from pico_code.network.wifi_connection_handler import scan_for_networks
+    from network.wifi_connection_handler import scan_for_networks
 
     print('Scanning for possible networks...')
 

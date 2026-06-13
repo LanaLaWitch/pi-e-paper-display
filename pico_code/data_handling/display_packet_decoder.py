@@ -1,4 +1,4 @@
-from pico_code.display.display_buffer import DisplayBuffer
+from display.display_buffer import DisplayBuffer
 from shared.display.display_frame import DisplayFrame
 from shared.display.frame_components import FrameComponent, ByteArrayComponent, TextComponent, InstructionComponent
 from array import array

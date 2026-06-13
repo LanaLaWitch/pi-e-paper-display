@@ -7,6 +7,10 @@
         {
             "name": "controller_code",
             "path": "controller_code"
+        },
+        {
+            "name": "Mpy Remote Workspace",
+            "uri": "pico:"
         }
     ],
     "settings": {
