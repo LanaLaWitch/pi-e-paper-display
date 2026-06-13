@@ -1,6 +1,7 @@
 import socket
+from shared.config import TCP_PORT, UDP_PORT
 
-def build_socket_tcp(ip='0.0.0.0', port=8080):
+def build_socket_tcp(ip='0.0.0.0', port=TCP_PORT):
 
     print(f'Building socket on IP: {ip} , Port: {port}')
     address = socket.getaddrinfo(ip, port)[0][-1]
@@ -12,7 +13,7 @@ def build_socket_tcp(ip='0.0.0.0', port=8080):
 
     return sock
 
-def build_socket_udp(ip='0.0.0.0', port=5005):
+def build_socket_udp(ip='0.0.0.0', port=UDP_PORT):
 
     print(f'Building socket on IP: {ip} , Port: {port}')
     address = socket.getaddrinfo(ip, port)[0][-1]
