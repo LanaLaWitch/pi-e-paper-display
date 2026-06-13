@@ -1,3 +1,5 @@
+import sys
+sys.path.insert(0, '/')
 from display.epaper_213_v4 import EPD_2in13_V4_Portrait
 
 def clear_epd_display():

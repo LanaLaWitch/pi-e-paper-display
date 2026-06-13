@@ -1,3 +1,5 @@
+import sys
+sys.path.insert(0, '/')
 import asyncio
 from display.epaper_213_v4 import EPD_2in13_V4_Landscape
 from shared.display.display_frame import DisplayFrame

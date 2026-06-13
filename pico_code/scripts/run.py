@@ -1,16 +1,21 @@
+import sys
+sys.path.insert(0, '/')
 import asyncio
+from machine import Pin
+import utime
 from logging.pico_logger import PicoLogger
 from safety_measures.refresh_monitor import RefreshMonitor
 from data_handling.display_packet_decoder import get_display_frame_buffer
 from display.epaper_213_v4 import LANDSCAPE, EPD_2in13_V4_Landscape, EPD_2in13_V4_Portrait
 from display.run_display import process_display_buffer
+from shared.config import TCP_PORT, UDP_PORT
 
 DISPLAY_TIMEOUT_H = 18
 MIN_REFRESH_RATE_M = 3
 
 
 def main():
-    from network.setup.setup_connection import start_server_tcp, start_server_udp
+    from pico_network.setup.setup_connection import start_server_tcp, start_server_udp
 
     print('Starting display program')
 
@@ -20,13 +25,24 @@ def main():
     if ip is None:
         return
     
-    tcp_sock = start_server_tcp(ip)
-    udp_sock = start_server_udp(ip)
+    tcp_sock = start_server_tcp(ip, TCP_PORT)
+    udp_sock = start_server_udp(ip, UDP_PORT)
+
+    _blink_led(3)
 
     logger = PicoLogger(udp_sock)
     refresh_monitor = RefreshMonitor(DISPLAY_TIMEOUT_H, MIN_REFRESH_RATE_M)
 
     asyncio.run(run_all_tasks(tcp_sock, logger, refresh_monitor))
+
+
+def _blink_led(times):
+    led = Pin('LED', Pin.OUT)
+    for _ in range(times):
+        led.on()
+        utime.sleep_ms(200)
+        led.off()
+        utime.sleep_ms(200)
 
 
 async def run_all_tasks(sock, logger, refresh_monitor):
@@ -36,8 +52,8 @@ async def run_all_tasks(sock, logger, refresh_monitor):
 
 def start_wifi_connection():
 
-    from network.wifi_config_handler import get_wifi_config
-    from network.wifi_connection_handler import connect_to_wifi, disconnect_from_wifi
+    from pico_network.wifi_config_handler import get_wifi_config
+    from pico_network.wifi_connection_handler import connect_to_wifi, disconnect_from_wifi
 
     ssid, psswrd = get_wifi_config()
 
@@ -75,3 +91,5 @@ async def listen_for_data(sock):
 
     received_data_buffer = await get_display_frame_buffer(conn)
     return received_data_buffer
+
+main()
